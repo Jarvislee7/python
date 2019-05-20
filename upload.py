@@ -116,7 +116,7 @@ SHAs:
 	bug = addattach('https://bugs.west.isilon.com',SVC_USER,SVC_PSWD)
 	bug.add_comments(246992,uld_all)
 
-md5_sha()
+add_md5_sha()
 
 
 
