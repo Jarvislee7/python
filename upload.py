@@ -99,17 +99,17 @@ def add_md5_sha():
 	presha  = fab.run('echo SHAs:')
 	sha256s = fab.run('sha256sum {}'.format(' '.join(files)))
 
-	uld_all = """
+        uld_all = """
 Patch uploaded to dogpools:
-http://dog-pools.west.isilon.com/data/patches/temp/%s
+http://dog-pools.west.isilon.com/data/patches/temp/{tgz}
 
 MD5s:
-%s
+{md5}
 
 SHAs:
-%s
-""" % (files[1],md5s,sha256s)
-	print uld_all 
+{sha256}
+""".format(tgz=files[1],md5=md5s,sha256=sha256s) #% (files[1],md5s,sha256s)
+        print uld_all
 	
 	SVC_USER = 'jlee1'
 	SVC_PSWD = '&UJM,ki88'
