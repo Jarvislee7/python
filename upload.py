@@ -4,8 +4,12 @@
 import os
 import sys
 import time
+import bugzilla
+sys.path.append(r'/root/ljw/workflow_tools')
+sys.path.append(r'/root/ljw/pv_automation')
 from fabric import api as fab
 import paramiko  # 用于调用scp命令
+from pv_automation.bugs import BugHandler as addattach
 #from scp import SCPClient
 
 ''' <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< Function Define >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> '''
@@ -76,8 +80,43 @@ def fab_remote():
 	fab.put('./package/*','/root/test')
 	fab.run('ls | grep -E "README|pkg|tgz"')
 
-upload()
-fab_remote()
+#upload()
+#fab_remote()
+
+
+files = ['patch-243995.pkg','patch-243995.tgz','README']
+def add_md5_sha():
+    fab.env.user = 'root'
+    fab.env.password = 'a'
+    fab.env.prompts = DEFAULT_PATCH_PROMPTS
+    fab.env.host_string = '10.7.145.67'
+    with fab.cd('/root/test'):
+	uld1    = fab.run('echo Patch uploaded to dogpools: ')
+	uld2    = fab.run('echo http://dog-pools.west.isilon.com/data/patches/temp/%s' % files[1] )
+	uld3    = fab.run('echo http://dog-pools.west.isilon.com/data/patches/temp/{}'.format(files[1])  )
+	premd5  = fab.run('echo MD5s:')
+	md5s    = fab.run('md5sum {}'.format(' '.join(files)))
+	presha  = fab.run('echo SHAs:')
+	sha256s = fab.run('sha256sum {}'.format(' '.join(files)))
+
+	uld_all = """
+Patch uploaded to dogpools:
+http://dog-pools.west.isilon.com/data/patches/temp/%s
+
+MD5s:
+%s
+
+SHAs:
+%s
+""" % (files[1],md5s,sha256s)
+	print uld_all 
+	
+	SVC_USER = 'jlee1'
+	SVC_PSWD = '&UJM,ki88'
+	bug = addattach('https://bugs.west.isilon.com',SVC_USER,SVC_PSWD)
+	bug.add_comments(246992,uld_all)
+
+md5_sha()
 
 
 
