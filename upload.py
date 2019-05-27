@@ -15,7 +15,7 @@ from pv_automation.bugs import BugHandler as addattach
 ''' <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< Function Define >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> '''
 
 ###########################
-# 1st way
+#upload 1st way
 ###########################
 def upload( remote_path="/root/test2/", file_path="./package/README"):
     print 
@@ -49,7 +49,7 @@ def upload( remote_path="/root/test2/", file_path="./package/README"):
 
 
 ###########################
-# 2nd way
+#upload 2nd way
 ###########################
 DEFAULT_PATCH_PROMPTS = {
     'Would you like to proceed?': 'yes',
@@ -84,6 +84,9 @@ def fab_remote():
 #fab_remote()
 
 
+###########################
+#update bug 1st way
+###########################
 files = ['patch-243995.pkg','patch-243995.tgz','README']
 def add_md5_sha():
     fab.env.user = 'root'
@@ -119,4 +122,18 @@ SHAs:
 add_md5_sha()
 
 
+###########################
+#update bug 2nd way
+###########################
+def tar_patch(patch_pkg_name):
+   patch_tgz_name = patch_pkg_name.replace('pkg', 'tgz')
+   run_cmd('tar -zcvf {} {} README'.format(patch_tgz_name, patch_pkg_name))
+   if not os.path.exists(patch_tgz_name):
+       raise Exception('file not found')
+   _, md5_value,_ = run_cmd('md5sum {} {} README'.format(patch_tgz_name, patch_pkg_name))
+   _, sha256_value,_ = run_cmd('sha256sum %s %s README' % (patch_tgz_name, patch_pkg_name))
+   url = 'http://dog-pools.west.isilon.com/data/patches/temp/' + patch_tgz_name
+   return '{}\n\nMD5:\n{}\nSHA256:\n{}'.format(url, md5_value, sha256_value)
+
+tar_patch(files[0])
 
