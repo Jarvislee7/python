@@ -133,7 +133,7 @@ def tar_patch(patch_pkg_name):
    _, md5_value,_ = run_cmd('md5sum {} {} README'.format(patch_tgz_name, patch_pkg_name))
    _, sha256_value,_ = run_cmd('sha256sum %s %s README' % (patch_tgz_name, patch_pkg_name))
    url = 'http://dog-pools.west.isilon.com/data/patches/temp/' + patch_tgz_name
-   return '{}\n\nMD5:\n{}\nSHA256:\n{}'.format(url, md5_value, sha256_value)
+   return 'Patch uploaded to dogpools:\n{}\n\nMD5:\n{}\nSHA256:\n{}'.format(url, md5_value, sha256_value)
 
 tar_patch(files[0])
 
