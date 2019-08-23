@@ -126,6 +126,6 @@ def test_color():
     print use_style('青蓝色', back='cyan'),
     print use_style('白色', back='white')
     print ''
+    
 if __name__ == '__main__':
-
     test_color()
