@@ -1,0 +1,301 @@
+* Bug ID 252732 
+  Updates to the netgroup are now seen immediately by the client, 
+  isi_netgroup_d now listens on the backend and loopback.
+  
+* Bug ID 252646
+  For the namespace and object access API in Apache, set a 
+  Content Security Policy (CSP) that prevents compatible browsers from
+  interpreting the remote resources being served.
+
+* Bug ID 246187
+  Updated zsh to address the following CVEs: CVE-2018-1100, CVE-2018-1083,
+  CVE-2018-1071.
+  
+* Bug ID 236768
+  The version of SQLite3 was updated to 3.24.0. 
+
+  For more information about these issues, see DSA-2018-221 on the Customer
+  support site.
+
+* Bug ID 235214
+  The HTTP response header disclosed version information about the server,
+  middleware components and/or application platform framework.
+  
+* Bug ID 235107
+  OneFS was affected by an elevation of privilege vulnerability where
+  an attacker with an admin role could have run commands as root.
+  
+* Bug ID 233913
+  X-Frame-Options header is used to prevent Clickjacking attacks for supported 
+  browsers.
+  
+* Bug ID 233387
+  The mountd process could have disclosed the existence of files to remote
+  users who were denied access to an export.
+
+* Bug ID 230470
+  The OneFS NLM (Network Lock Manager) was listening for NFS traffic,
+  including the NULL message. As a result, unauthorized users could have
+  still performed NFS queries through the NLM service.
+
+* Bug ID 228782
+  During system auditing, if the audit message was too long, services
+  could be temporarily unavailable.
+
+The patch includes the following new non-security fixes:
+
+* Bug ID 255256
+  On certain OneFS clusters, many fibers got stuck in NfsProtoNfs3ProcCommit/ 
+  _NfsHealthTokenRefresh and some were on hold for more than an hour. This
+  situation might have caused data unavailability.
+
+* Bug ID 254978
+  A memory leak caused the NFS container to overflow and the process stopped.
+  Due to the memory leak in the NFS container, you might have experienced data
+  unavailability. 
+
+The patch includes the following older non-security fixes:
+
+* Bug ID 252620
+  If an Inode Format Manager (IFM) extension block was corrupted but the rest
+  of the associated file was not corrupted, SyncIQ policies configured with the 
+  expected_dataloss flag might have failed.
+  
+* Bug ID 252472
+  When a SIQ policy was reset by breaking the target association and rerunning 
+  the job, some SIQ state was not cleaned up which resulted in the following 
+  error upon resync-prep:
+  "Cannot start resync prep: already done"
+  
+* Bug ID 252385
+  Every attempt to make an old-style SMB connection over TCP port 139
+  (and thus involving a NetBios session request) was immediately disconnected,
+  even though port 139 was enabled. The following message was found in the
+  log file when the client was disconnected:
+  "Invalid NetBios header length"
+
+* Bug ID 251884
+  This fix addresses a SyncIQ issue where workers could incorrectly track
+  hardlink counts during change compute, causing assertion failures.
+  
+* Bug ID 251315
+  The isi_changelist_mod and isi_cpstate_mod commands were added to the sudoers 
+  list. This enables the Support team to implement workarounds to clusters that 
+  are in compliance mode.
+
+* Bug ID 250704
+  This fix addresses an issue where all entries in the netgroup member table
+  of type IP_DYNAMIC got flushed while executing NfsNetgroupRefresh command.
+  
+* Bug ID 250218
+  With certain share capabilities enabled on the share, if the share
+  attributes were modified by Microsoft Management Console (MMC) interface,
+  the SMB server process restarted unexpectedly, causing a disruption
+  in service.
+  
+* Bug ID 250193
+  If the message size was greater than 8MB, the Lwsocket send API raised an 
+  assertion error EMSGSIZE.  The limit was imposed on each entry in the iovec 
+  vector and on the sum of all the entries in the iovec vector. The fix was to  
+  iterate over the response message iovec and split any iovec entry that 
+  is larger than the maximum limit.
+
+* Bug ID 249907
+  If the registration took too long, the userspace state and kernel space state 
+  could be out of sync. Once they got out of sync, failover and mount stopped 
+  responding indefinitely until the NFS servers were shut down simultaneously. 
+  As a result, this exhausted all of the processing threads which disallowed 
+  any NFSv3 or NFSv4 operations from making progress.
+  
+* Bug ID 249767
+  Multiple sworkers were calling isi_cbm_purge on different hardlinks to
+  the same stub file. As a result of this race condition, a job-fatal error
+  was reported and that prevented the completion of the policy.
+  
+* Bug ID 247609
+  SyncIQ incremental jobs in compliance mode failed when moving a file from
+  one directory tree that is later deleted to another.  
+  
+* Bug ID 247406
+  This fix ensures that the potential memory leak in lwio pertaining to leaked 
+  k5_mutex_init is corrected.
+
+* Bug ID 246830
+  This fix addresses the worker ack deadlock in STF_PHASE_CT_COMP_DIR_LINKS. 
+  Previously, mirror policy jobs were not responding in
+  STF_PHASE_CT_COMP_DIR_LINKS and multiple restarts were required for the 
+  jobs to progress.
+
+* Bug ID 246616
+  If you had failed over to another node, the client would stop responding
+  indefinitely. This issue occurred due to a failure path in the location
+  where the lock failover (LKF) opaque data was checked. The NFS protocol 
+  service decided to remove the entry from its client table and not
+  update the kernel.
+
+* Bug ID 246464
+  SyncIQ logged the following filesystem error on the target cluster:
+  "Failed to move from .tmp-working-dir to tmp working directory: 
+  Operation not permitted"
+
+* Bug ID 246376 
+  SyncIQ failback mirror policies running between two SmartLock Compliance
+  Domains could sometimes fail in the CT_COMP_DIR_LINKS phase. This fix
+  ensures that during phase CT_COMP_DIR_LINKS, 
+  migr_continue_regular_comp_lin_links is correctly called instead of 
+  stf_continue_change_transfer in lin_ack_callback. 
+  
+* Bug ID 246043 
+  SyncIQ failback mirror policies running between two SmartLock Compliance
+  Domains could sometimes fail in the WORK_CC_COMP_RESYNC phase because of
+  pworkers working on same set of resync lins. This fix ensures that lin
+  list iterators in WORK_CC_COMP_RESYNC start from 
+  min(work->chkpt_lin, work->min_lin) instead of work->lin.
+
+* Bug ID 245319
+  NFS open requests with the CLAIM_PREVIOUS flag set
+  (for example, after failover) required OPEN_CONFIRM, which could cause
+  the open requests to fail on some clients. 
+
+* Bug ID 245126
+  If doing resync-prep on a SyncIQ policy that has target snapshots and
+  does not have snapshot_pattern set, it would cause the new policy
+  to never complete.
+  
+* Bug ID 245110 
+  If a file was overwritten and someone other than the owner had permissions
+  to modify the file, there was a possibility of data unavailability.
+  The fix now gives the ownership of the file to the new user who previously
+  had permissions to modify the file.
+
+* Bug ID 244918 
+  The isi_netgroup_d process was incorrectly listening on all interfaces,
+  including external interfaces, through port 59645 instead of listening
+  on internal interfaces only through port 65000.
+
+* Bug ID 244129 
+  When audit and inotify are both enabled, the Hadoop Distributed File System
+  (HDFS) rename command could cause the HDFS process to deadlock and become
+  unresponsive to client requests.
+
+* Bug ID 243255
+  If you tried to create and upload an isi_phone_home package for 8.1.2.0,
+  the process failed and clusters were not displayed in Cluster Insights.
+  
+* Bug ID 242985
+  The treemv_continue function is modified to address the condition where the 
+  SyncIQ jobs in which non-empty directories are moved across the quota 
+  boundaries on the target failed with "Unable to link" errors. The 
+  treemv_continue function retries the data move operation when a ENOTEMPTY 
+  error is hit and allows the job to continue to successful completion.
+  
+* Bug ID 242183 
+  Support is complete with File ID in addition to path name, so that files
+  are completed successfully when they are renamed. As a result, lock leak
+  issues can be avoided.  
+
+* Bug ID 241939
+  Hadoop Distributed File System (HDFS) RPCs that did not require
+  a lock from being blocked behind lock checkers should be prevented.
+
+* Bug ID 240851
+  WebHDFS REST API returned IP outside of the Hadoop Distributed File
+  System (HDFS) rack IP Pool.
+
+* Bug ID 240165
+  The Hadoop Distributed File System (HDFS) rename command did not manage
+  file handles correctly and might have caused data unavailability
+  with STATUS_TOO_MANY_OPEN_FILES error.
+
+* Bug ID 238739
+  If the NFS client list included an IPv6 address which was the IPv4-mapped
+  form of any address (such as  :ffff:0.0.0.0/0", known as "INADDR_ANY"), 
+  some NFS clients might not have been able to access the corresponding
+  export.
+
+* Bug ID 238577
+  An NFSv4 mount issue was resolved.
+  
+* Bug ID 238367
+  If the treemv_restart was called on a .tmp-[lin] directory that contained a 
+  "tw-tmp-name" dirent, the jobs failed and could not progress on restart.  
+  As a result, the .tw-tmp-dir contents had to be moved manually.
+
+* Bug ID 237060
+  This fix addresses an issue where checkpoints were not being cleared when
+  switching to worklist phases, resulting in non-deterministic restore and
+  missing lins. Therefore, the following error was displayed:
+  FAILED ASSERTION found == true @ /mnt/ssd/ochung-
+  onefs/isilon/bin/isi_migrate/pworker/stf_based.c:2668
+
+* Bug ID 236681
+  NFS clients could become unresponsive if they attempted an OPEN request
+  and the request already existed with the state NFS4_OPEN_STATUS_UNCONFIRMED.
+
+* Bug ID 236278
+  If a OneFS cluster had the Hadoop Distributed File System (HDFS) 
+  configured for Kerberos authentication, WebHDFS requests over curl might
+  have failed to follow a redirect request.
+
+* Bug ID 235504
+  This NFS fix makes it possible for Nfsmgmt to start listening on a 
+  well-known port.
+
+* Bug ID 235222  
+  The isi_phone_home tool did not create /data and /data/<lnn> directories 
+  for clusters that were upgraded to 8.1.0.4 and already had IPH enabled.
+  Logging also failed for per node telemetry when the LNN did not match
+  the DevID.
+
+* Bug ID 234439
+  If a network disruption resulted in losing a message during SyncIQ's 
+  compliance commit phase, SyncIQ could get stuck and require manual 
+  intervention to progress the job. The fix checks for the work item values 
+  that cause the error and performs cleanup allowing the job to progress 
+  without manual intervention.
+  
+* Bug ID 233844
+  When you used commands like ls or rsync on dir through NFSv3 and NFSv4, 
+  a huge performance gap was noticed in readdir. NFSv4 triggered extra lock
+  requests from readdir, particularly the ones that impacted performance.
+  
+* Bug ID 232933
+  Events that caused the apache2 webui_http logs to roll over also caused
+  the httpd processes to restart. This behavior caused InsightIQ to report
+  "401 unauthorized" errors and led to data retrieval delays.
+
+* Bug ID 232401
+  This fix allows the INADDR_ANY netmask (0.0.0.0/0) in the NFS to export
+  client fields. 
+
+* Bug ID 230462 
+  The showmount command would display all the exports on a cluster to the NFS 
+  client. After the fix, all the exports on the cluster are displayed by default 
+  when you use the showmount command. To further enable tight security, use the 
+  following commands:
+  isi_gconfig 
+  registry.Services.lwio.Parameters.Drivers.nfs.
+  MountdAllowForeignShowmountERequests=0/usr/likewise/bin/lwsm refresh nfs
+  
+  To recover the default configuration, use the following commands:
+  isi_gconfig 
+  registry.Services.lwio.Parameters.Drivers.nfs.
+  MountdAllowForeignShowmountERequests=1/usr/likewise/bin/lwsm refresh nfs
+
+* Bug ID 230036
+  If you tried to access a OneFS cluster through SMB and the MaxdataCount was
+  set to (-1), lwio might have failed on FSCTL_SRV_ENUMERATE_SNAPSHOTS.
+
+* Bug ID 228627
+  When files were created with large access control lists (ACLs), memory leak
+  was found in OnefsGetSecurityDescriptorFile.
+  
+* Bug ID 222196
+  If you removed a zone without removing its active exports, the situation
+  could have caused NFS to restart.
+  
+* Bug ID 190286
+  If OneFS experienced network issues during GETPORT call to a client,
+  OneFS might have quarantined that client for 12 hours, by default. If a 
+  client is quarantined, they are prevented from accessing the cluster for the
+  duration of the quarantine. 

@@ -1,0 +1,59 @@
+(*) Bug 252455 - PATCH: [8.1.2.0_UGA-RUP_2019-07][Multiple Userspace Fixes](July 2019)
+        (1) Bug 229065 - [FED] : LWIO high memory usage on OneFS 8.1.1.1 with OnefsGetSecurityDescriptorFile as the highest consumer
+        (2) Bug 234049 - User unable to access files over NFS3 after 8.1.2 upgrade
+        (3) Bug 235463 - isi_phone_home does not create /data and /data/<lnn> for clusters upgraded to 8.1.0.4 and IPH already enabled. Logging also fails for per node telemetry when the LNN doesn't match the DevID
+        (4) Bug 235646 - [FED] : Huge performance gap in readdir between NFSv3 and NFSv4 due to different requests counts/types of lin lock
+        (5) Bug 236286 - [FED] : curl webhdfs kerberos requests fail when automatic redirect is enabled
+        (6) Bug 237032 - [FED] : open state table entry with state NFS4_OPEN_STATE_UNCONFIRMED causes client to spin forever
+        (7) Bug 240177 - [FED] CVS CAREMARK-OPEN: Since the cluster was upgraded to v8.1.2.0, we see high number of open files
+        (8) Bug 241098 - : webhdfs REST api returning IP outside of the hdfs rack IP Poo
+        (9) Bug 241864 - [FED] HDFS periodically hangs on lk_would_block syscall
+        (10) Bug 242185 - advlock leak in hdfs during rename in race condition
+        (11) Bug 231111	- [FED] : don't allow NFS calls (not even NULL) to NLM port
+        (12) Bug 232835	- [FED] : lwio crashes on FSCTL_SRV_ENUMERATE_SNAPSHOTS when MaxdataCount is (-1)
+        (13) Bug 234577	- [FED] : mountd is susceptible to an information disclosure bug
+        (14) Bug 241294	- [FED] Upgrading SQLite3 version in isi_tardis_d to newer versions.
+        (15) Bug 241873	- [FED]:  NTT COM MANAGED SERVICES, SAU: Compliance cluster security loophole allows access to root shell
+        (16) Bug 242377	- [FED] :  LWIO crashes when logging an audit event with a path name that is too long
+        (17) Bug 242390	- [FED]: EXXON/MOBIL GLOBAL SVC COMPANY: The HTTP Response header unnecessarily discloses version information about the server, middleware components and/or application platform framework.
+        (18) Bug 244920 - isi_netgroup_d is listening on wrong port 
+        (19) Bug 243134 - isi_phone_home incorrectly uses the "--noemail" option for isi_gather_info in package.py so package creation and upload fails in 8.1.2.0         
+        (20) Bug 236949 - INADDR_ANY not working for NFS_CLIENT_TYPE_SUBNET/0
+        (21) Bug 235506 - [FED]: Make nfsmgmt listen on a well known port)
+        (22) Bug 233490 - [FED] : Allow the INADDR_ANY netmask (0.0.0.0/0) in nfs export client fields
+        (23) Bug 230907 - [FED] : stop the showmount command from allowing an NFS client to see all exports on a cluster   
+        (24) Bug 237058 - FAILED ASSERTION found == true @ /mnt/ssd/ochung-onefs/isilon/bin/isi_migrate/pworker/stf_based.c:2668
+        (25) Bug 245371 - [FED] : do NOT require confirmation on a reclaim-type open
+        (26) Bug 246190 - [FED]: Multiple zsh vulnerabilities need to be addressed
+        (27) Bug 244662 - test_validate_json failed when enable hdfs inotify and fsimage at background
+        (28) Bug 244128 - [FED]: hdfs hang with inotify and audit enabled
+        (29) Bug 244996 - [FED] Overwiting file with webHDFS not set the right user 
+        (30) Bug 247867 - [FED] (ING): avoid migr_continue_comp_resync sbt bulk op race
+        (31) Bug 246738 - [FED] (ING): handle phase CT_COMP_DIR_LINKS in lin_ack_callback
+        (32) Bug 246653 - [FED]: Failed to get opaque data on failover
+        (33) Bug 246495 - [FED] (Fidelity): treemv_continue_retry loop expects wrong errno and never retries
+        (34) Bug 247891 - [FED 8.1.2]: Don't treemv_restart TW_MV_SAVEDDIRNAMEFILE dirents
+        (35) Bug 247502 - [FED] : lwio kerberos memory leak (k5_mutex_init)
+        (36) Bug 249649 - FED: OneFS is susceptible to clickjacking
+        (37) Bug 245812 - [FED] :Check for null pointer before attempting to strdup snapshot_pattern in migr_readconf()
+        (38) Bug 248553 - [FED] Don't send COMP_TARGET_WORK_RANGE_MSG with min_lin and max_lin == 0
+        (39) Bug 246944 - [FED] (ING): ack deadlock in STF_PHASE_CT_COMP_DIR_LINKS
+        (40) Bug 249142 - [FED 8.1.2] SyncIQ -  "Failed to move from .tmp-working-dir to tmp working directory: Operation not permitted"
+        (41) Bug 250104 - [FED]: Consecutive failover among multiple nodes causes nfs indefinite hang
+        (42) Bug 250194 - [FED] Connection refused running map reduce job against Angus. lwsocket assert on errno 40 (EMSGSIZE)
+        (43) Bug 237335 - [FED] : Rolling over of webui_http logs is causing httpd processes to be restarted causing 401 errors with InsightIQ
+        (44) Bug 247615 - [FED 8.1.2] Compliance domain sync - file moved and dir deleted
+        (45) Bug 250217 - [FED] : SRVSVC NetShareSetInfo causes LWIO crash if share ACL contains Run-as-Root
+        (46) Bug 250459 - [FED]: nlm: rpc handle creation ignores CallbackTimeout setting
+        (47) Bug 250762 - : Do not evict IP_DYNAMIC entries from the netgroup member table when executing NfsNetgroupRefresh
+        (48) Bug 251300 - Prevent isi_cbm_purge race in file_begin_callback
+        (49) Bug 251317 - (Citi): Add isi_changelist_mod and isi_cpstate_mod to sudoers list
+        (50) Bug 252469 - [FED]: NetBIOS service not working in 8.1.2.0 with error "Invalid NetBios header length"
+        (51) Bug 252645 - [FED]:Cross site scripting vulnerability in file PUT request
+        (52) Bug 252697 - (ING): Worklist work item restarts lead to repeated work in change compute
+        (53) Bug 251866 - [FED] NFS container crashes when dereferencing NULL pointer in NfsLinTreeRemoveExport
+        (54) Bug 252474 - [FED]: 8120 Cannot start resync prep after a mirror policy is deleted and association is broken and rebuilt
+        (55) Bug 252916 - [FED]: isi_netgroup_d are not listening on all backend & loopback IPs.
+        (56) Bug 253330 - : expected_dataloss SyncIQ policy fails when IFM extension block is corrupted
+    (1) Bug 255253 - [FED]: Fibers stuck in NfsProtoNfs3ProcCommit for hours
+    (2) Bug 255366 - [FED]: creeping memory leak in NFS container can cause overflow and process abort
