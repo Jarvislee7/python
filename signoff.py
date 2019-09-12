@@ -1,19 +1,14 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 
-''' <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< Note >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> '''
 '''
 This Script used for IME Mechanic Test Shipping
 Script prefer for IME PV team use
-
-Author: CAO Hui
-Date: 2019-5-07
 '''
-''' <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< Note End >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> '''
 
-
-''' <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< Import System LIB >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> '''
-import os, sys, subprocess
+import os
+import sys
+import subprocess
 import argparse
 import difflib
 import requests
@@ -30,7 +25,9 @@ PARSER.add_argument("-d", "--draft", type=str, help="Draft readme file you want 
 compare to final readme. It will compare FINAL against DRAFT")
 ARGS = PARSER.parse_args()
 
-''' <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< Global Variable >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> '''
+'''
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< Global Variable >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+'''
 
 #1. User setup variables according to target
 #BASEFILE = './Base'
@@ -41,7 +38,9 @@ BASEFILE = ARGS.Base
 FINALFILE = ARGS.Final
 DRAFTFILE = ARGS.draft
 
-''' <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< Class Define >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> '''
+'''
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< Class Define >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+'''
 
 class Logger(object):
     '''logger'''
@@ -63,17 +62,17 @@ class Logger(object):
         '''flush'''
         pass
 
-''' <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< Function Define >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> '''
+# <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< Function Define >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
 def get_fed_list(base_file):
     '''get fed list'''
     cmd = "cat " + base_file
     ret = subprocess.check_output(cmd, shell=True)
-    print("\nBase Bug Content: \n%s\n" % ret)
+    print "\nBase Bug Content: \n%s\n" % ret
     cmd = 'cat ' + base_file + " | grep ') Bug ' | awk '{print $3}' | sort"
     ret = subprocess.check_output(cmd, shell=True)
     fed_list = ret.split()
-    print("\nFED List: %s\n" % fed_list)
+    print "\nFED List: %s\n" % fed_list
     return fed_list
 
 def get_rfd_list(fed_list):
@@ -95,7 +94,7 @@ def get_rfd_list(fed_list):
     cmd = "cat ./Temp | awk '{print $2}' | sort"
     ret = subprocess.check_output(cmd, shell=True)
     rfd_list = ret.split()
-    print("\nRFD List: %s\n" % rfd_list)
+    print "\nRFD List: %s\n" % rfd_list
     clean_up('./Temp')
     return rfd_list
 
@@ -103,20 +102,20 @@ def get_ship_bug(final_file):
     '''get ship bug'''
     cmd = "cat " + final_file
     ret = subprocess.check_output(cmd, shell=True)
-    print("\nShip Bug Content: \n%s\n" % ret)
+    print "\nShip Bug Content: \n%s\n" % ret
     cmd = "cat " + final_file + " | grep '* Bug ID ' | awk '{print $4}' | sort"
     ret = subprocess.check_output(cmd, shell=True)
     ship_bug = ret.split()
-    print("\nShip Readme Bug List: %s\n" % ship_bug)
+    print "\nShip Readme Bug List: %s\n" % ship_bug
     return ship_bug
 
 def cmp_rfd_ship(rfd_list, ship_bug):
     '''cmp rfd bug with ship bug'''
-    print("\n RFDs  |  Bugs")
-    print("---------------")
+    print "\n RFDs  |  Bugs"
+    print "---------------"
     for rfd in rfd_list:
         if rfd in ship_bug:
-            print("%s = %s" % (rfd, rfd))
+            print "%s = %s" % (rfd, rfd)
         else:
             print color.use_style("%s is not in Ship Readme Bugs" % rfd, fore='red', mode='bold')
     for bug in ship_bug:
@@ -154,13 +153,12 @@ def cmp_final_readme(draft_reame, final_readme):
         f_content = f_fd.readlines()
     diff = difflib.HtmlDiff()
     result = diff.make_file(d_content, f_content)
-    with open('./Draft_Final_Compare.html', 'w+') as FD:
-        FD.writelines(result)
-    print("\nCompared result file 'Draft_Final_Compare.html' created successfully!\n")
+    with open('./Draft_Final_Compare.html', 'w+') as file_handle:
+        file_handle.writelines(result)
+    print "\nCompared result file 'Draft_Final_Compare.html' created successfully!\n"
 
 
-''' <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< Main Function \
- >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> '''
+# <<<< Main Function >>>>
 
 
 if __name__ == '__main__':
