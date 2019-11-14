@@ -8,13 +8,14 @@ Script prefer for IME PV team use
 
 import collections
 import re
+
 import requests
 from bs4 import BeautifulSoup
-from pv_automation.bug import BugHandler
-from patch_automation.nodetest.log import logger
+
 from patch_automation.core.conf import BZ_URL, SVC_PSWD, SVC_USER
-from patch_automation.nodetest.decorators import skippable
-from patch_automation.nodetest.decorators import checks
+from patch_automation.nodetest.log import logger
+from common.bug import BugHandler
+from pv_automation.verify.check import checks
 
 # command used
 FED_ERR = '{}.\nGet FED from comment FAILS, please check manually!'
