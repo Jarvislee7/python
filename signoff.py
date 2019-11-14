@@ -6,14 +6,16 @@ This Script used for IME Mechanic Test Shipping
 Script prefer for IME PV team use
 '''
 
-import os
-import sys
-import subprocess
 import argparse
 import difflib
+import os
+import subprocess
+import sys
+
 import requests
-import color
 from bs4 import BeautifulSoup
+
+import color
 
 PARSER = argparse.ArgumentParser()
 PARSER.add_argument("Base", type=str, help="Base bug list, check Bugzilla comment. \
