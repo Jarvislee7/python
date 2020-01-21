@@ -85,11 +85,11 @@ for index, value in enumerate(l3):
     
 # 去重并排序
 li = [5, 3, 6, 1, 2, 8, 7, 9, 3, 5, 2]
-    print('original list:\n %s \n' % li)
-    li2 = list(set(li))
-    print('use set to delete duplicate number:\n %s \n' % li2)
-    li2.sort(key=li.index)
-    print('no duplicate number in original sequence:\n %s \n' % li2)
+print('original list:\n %s \n' % li)
+li2 = list(set(li))
+print('use set to delete duplicate number:\n %s \n' % li2)
+li2.sort(key=li.index)
+print('no duplicate number in original sequence:\n %s \n' % li2)
 
 
 ### 字典 ###
